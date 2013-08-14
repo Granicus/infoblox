@@ -16,8 +16,14 @@ Or install it yourself as:
 
     $ gem install infoblox
 
-## Usage
+## Command-line usage
+The infoblox gem installs a command-line script called "infoblox," which supports
+querying, adding, and removing host names from dns records: 
 
+    infoblox --help
+
+
+## Ruby client usage
 Create a new client: 
   
     client = Infoblox::Client.new(:username => "foo", 

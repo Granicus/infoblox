@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Billy Reisinger"]
   spec.email         = ["billy.reisinger@govdelivery.com"]
   spec.description   = %q{A Ruby wrapper to the Infoblox WAPI}
-  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI.  Only a few operations are supported as of yet.}
+  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI.  Only a few operations are supported as of yet.  
+                          The gem comes with a bin script as well as library classes that can be used in application code.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

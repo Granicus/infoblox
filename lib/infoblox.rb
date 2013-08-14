@@ -10,9 +10,7 @@ require 'infoblox/host'
 require 'infoblox/client'
 
 module Infoblox
-  VERSION   = '1.0'
-  BASE_PATH = '/wapi/v' + VERSION + '/'
+  WAPI_VERSION   = '1.0'
+  BASE_PATH = '/wapi/v' + WAPI_VERSION + '/'
   DEBUG     = ENV['DEBUG']
 end
-
-#OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
