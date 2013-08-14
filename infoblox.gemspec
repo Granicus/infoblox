@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Infoblox::VERSION
   spec.authors       = ["Billy Reisinger"]
   spec.email         = ["billy.reisinger@govdelivery.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A Ruby wrapper to the Infoblox WAPI}
+  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI.  Only a few operations are supported as of yet.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,7 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "typhoeus"
   spec.add_runtime_dependency "faraday"
   spec.add_runtime_dependency "faraday_middleware"  
   
