@@ -20,7 +20,9 @@ Or install it yourself as:
 
 Create a new client: 
   
-    client = Faraday::Client.new(:username => "foo", :password => "bar", :host => "https://foo-bar-dns.example.com")
+    client = Infoblox::Client.new(:username => "foo", 
+                                  :password => "bar", 
+                                  :host => "https://foo-bar-dns.example.com")
 
 Creating a host record: 
 
