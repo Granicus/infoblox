@@ -20,19 +20,19 @@ Or install it yourself as:
 
 Create a new client: 
   
-  client = Faraday::Client.new(:username => "foo", :password => "bar", :host => "https://foo-bar-dns.example.com")
+    client = Faraday::Client.new(:username => "foo", :password => "bar", :host => "https://foo-bar-dns.example.com")
 
 Creating a host record: 
 
-  client.create_host("build-machine.internal", "10.10.3.3")
+    client.create_host("build-machine.internal", "10.10.3.3")
   
 Delete the host: 
   
-  client.delete_host("build-machine.internal")
+    client.delete_host("build-machine.internal")
 
 Find hosts (fuzzy matches on host name): 
 
-  client.find_host_by_name("build-")
+    client.find_host_by_name("build-")
 
 ## Contributing
 
