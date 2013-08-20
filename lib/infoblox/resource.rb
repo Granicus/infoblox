@@ -56,12 +56,14 @@ module Infoblox
       connection.delete(resource_uri).status == 200
     end
 
+    def get
+      connection.get(resource_uri)
+    end
+
     def resource_uri
       self._ref.nil? ? self.class.resource_uri : (BASE_PATH + self._ref)
     end
     
-  private
-
     def remote_attribute_hash
       {}.tap do |hsh|
         self.class.remote_attrs.each do |k|
@@ -69,6 +71,8 @@ module Infoblox
         end
       end
     end
+
+  private
 
     def connection
       self.class.connection

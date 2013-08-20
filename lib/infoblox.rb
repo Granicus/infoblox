@@ -8,6 +8,8 @@ require 'infoblox/connection'
 require 'infoblox/resource'
 require 'infoblox/host'
 require 'infoblox/client'
+require 'infoblox/ipv4addr'
+require 'infoblox/network'
 
 module Infoblox
   WAPI_VERSION   = '1.0'

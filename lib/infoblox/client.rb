@@ -12,8 +12,19 @@ module Infoblox
       Host.all
     end
 
+    ## 
+    # Find all host records by wildcard name. 
+    # 
     def find_host_by_name(name)
       Host.find(:"name~" => name)
+    end
+
+    ##
+    # Find all ipv4addr records by ip address fragment.
+    # ex:  find_ips('10.10.2') => [#<Infoblox::Ipv4addr>...]
+    #
+    def find_ips(ip_fragment)
+      Ipv4addr.find(:"ipv4addr~" => ip_fragment)
     end
 
     ##
