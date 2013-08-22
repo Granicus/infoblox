@@ -6,6 +6,10 @@ module Infoblox
       obj.nil? ? @wapi_object : @wapi_object = obj
     end
 
+    ## 
+    # Define a writeable remote attribute, i.e. one that 
+    # should show up in post / put operations.
+    # 
     def self.remote_attr_accessor(*args)
       args.each do |a|
         attr_accessor a
@@ -17,12 +21,24 @@ module Infoblox
       @remote_attrs ||= []
     end
 
+    ##
+    # Return an array of all records for this resource. 
+    #
     def self.all
       JSON.parse(connection.get(resource_uri).body).map do |item|
         new(item)
       end
     end
 
+    ##
+    # Find resources with query parameters. 
+    #
+    # Example: return extensible attributes for every resource.
+    #    {"_return_fields" => "extensible_attributes"}
+    #
+    # Example: filter resources by name.
+    #    {"name~" => "foo.*bar"}
+    #
     def self.find(params)
       JSON.parse(connection.get(resource_uri, params).body).map do |item|
         new(item)
@@ -56,8 +72,8 @@ module Infoblox
       connection.delete(resource_uri).status == 200
     end
 
-    def get
-      connection.get(resource_uri)
+    def get(params={})
+      connection.get(resource_uri, params)
     end
 
     def resource_uri
