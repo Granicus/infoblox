@@ -1,6 +1,7 @@
 module Infoblox
   class Host < Resource
-    remote_attr_accessor :ipv4addrs, :name, :configure_for_dns
+    remote_attr_accessor :ipv4addrs, :name, :configure_for_dns, 
+                         :extensible_attributes
     attr_accessor :view
 
     wapi_object "record:host"

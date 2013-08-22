@@ -1,6 +1,6 @@
 module Infoblox 
   class Network < Resource
-    remote_attr_accessor :network
+    remote_attr_accessor :network, :extensible_attributes
     attr_accessor :network_view
 
     wapi_object "network"

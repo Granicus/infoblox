@@ -42,6 +42,14 @@ Find hosts (fuzzy matches on host name):
 
     client.find_host_by_name("build-")
 
+One can also use the resource classes directly to run arbitrary query logic: 
+
+    Infoblox::Network.find({"_return_fields" => "extensible_attributes"})
+    # => [...]
+   
+    Infoblox::Host.find({"name~" => "demo[0-9]{1,}-web.domain"})
+    # => [...]
+
 ## Contributing
 
 1. Fork it
