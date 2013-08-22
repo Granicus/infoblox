@@ -21,11 +21,19 @@ module Infoblox
       @remote_attrs ||= []
     end
 
+    def self._return_fields
+      self.remote_attrs.join(",")
+    end
+
+    def self.default_params
+      {:_return_fields => self._return_fields}
+    end
+
     ##
     # Return an array of all records for this resource. 
     #
     def self.all
-      JSON.parse(connection.get(resource_uri).body).map do |item|
+      JSON.parse(connection.get(resource_uri, default_params).body).map do |item|
         new(item)
       end
     end
@@ -40,6 +48,7 @@ module Infoblox
     #    {"name~" => "foo.*bar"}
     #
     def self.find(params)
+      params = default_params.merge(params)
       JSON.parse(connection.get(resource_uri, params).body).map do |item|
         new(item)
       end
@@ -74,6 +83,10 @@ module Infoblox
 
     def get(params={})
       connection.get(resource_uri, params)
+    end
+
+    def put
+      connection.put(resource_uri, remote_attribute_hash)
     end
 
     def resource_uri

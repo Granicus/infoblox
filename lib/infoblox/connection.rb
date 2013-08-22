@@ -17,6 +17,15 @@ module Infoblox
       end
     end
 
+    def put(href, body)
+      wrap do
+        connection.put do |req|
+          req.url href
+          req.body = body.to_json
+        end
+      end
+    end
+
     def delete(href)
       wrap do
         connection.delete(href)
