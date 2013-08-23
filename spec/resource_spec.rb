@@ -2,6 +2,8 @@ require 'spec_helper'
 class FooResource < Infoblox::Resource
   remote_attr_accessor :name, :junction
   remote_attr_writer :do_it
+  remote_post_accessor :sect
+
   attr_accessor :animal
   wapi_object "foo:animal"
 end
@@ -34,19 +36,32 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     FooResource.all.should eq([])
   end
 
-  [:put, :post].each do |operation|
-    it "should #{operation} with the right attributes" do
-      conn = double
-      uri = Infoblox::BASE_PATH + ((operation == :put) ? "abcd" : "foo:animal")
-      allow(conn).to receive(operation).with(uri, {:name => "jerry", :junction => "32", :do_it => false}).and_return(FooResponse.new("[]"))
-      FooResource.connection = conn
-      f = FooResource.new
-      f._ref = "abcd" if operation == :put
-      f.do_it = false
-      f.junction = "32"
-      f.name = "jerry"
-      f.send(operation)
-    end
+  it "should put with the right attributes" do
+    conn = double
+    uri = Infoblox::BASE_PATH + "abcd"
+    allow(conn).to receive(:put).with(uri, {:name => "jerry", :junction => "32", :do_it => false}).and_return(FooResponse.new("[]"))
+    FooResource.connection = conn
+    f = FooResource.new
+    f._ref = "abcd" 
+    f.do_it = false
+    f.junction = "32"
+    f.name = "jerry"
+    f.sect = :fulburns
+    f.put
+  end
+
+  it "should post with the right attributes" do
+    conn = double
+    uri = Infoblox::BASE_PATH + "foo:animal"
+    allow(conn).to receive(:post).with(uri, {:name => "jerry", :junction => "32", :do_it => false, :sect => :fulburns}).and_return(FooResponse.new("abcdefg"))
+    FooResource.connection = conn
+    f = FooResource.new
+    f.do_it = false
+    f.junction = "32"
+    f.name = "jerry"
+    f.sect = :fulburns
+    f.post
+    f._ref.should eq('abcdefg')
   end
 end
 

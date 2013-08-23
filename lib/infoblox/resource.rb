@@ -18,6 +18,17 @@ module Infoblox
     end
 
     ##
+    # Define a remote attribute that can only be sent during a
+    # POST operation. 
+    # 
+    def self.remote_post_accessor(*args)
+      args.each do |a|
+        attr_accessor a
+        remote_post_attrs << a
+      end
+    end
+
+    ##
     # Define a remote attribute that is write-only
     # 
     def self.remote_attr_writer(*args)
@@ -33,6 +44,10 @@ module Infoblox
 
     def self.remote_write_only_attrs
       @remote_write_only_attrs ||= []
+    end
+
+    def self.remote_post_attrs
+      @remote_post_attrs ||= []
     end
 
     def self._return_fields
@@ -87,7 +102,7 @@ module Infoblox
     end
 
     def post
-      self._ref = connection.post(resource_uri, remote_attribute_hash(write = true)).body
+      self._ref = connection.post(resource_uri, remote_attribute_hash(write = true, post = true)).body
       true
     end
     alias_method :create, :post
@@ -108,7 +123,7 @@ module Infoblox
       self._ref.nil? ? self.class.resource_uri : (BASE_PATH + self._ref)
     end
     
-    def remote_attribute_hash(write=false)
+    def remote_attribute_hash(write=false, post=false)
       {}.tap do |hsh|
         self.class.remote_attrs.each do |k|
           hsh[k] = self.send(k)
@@ -116,6 +131,9 @@ module Infoblox
         self.class.remote_write_only_attrs.each do |k|
           hsh[k] = self.send(k)
         end if write
+        self.class.remote_post_attrs.each do |k|
+          hsh[k] = self.send(k)
+        end if post
       end
     end
 
