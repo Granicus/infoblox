@@ -24,22 +24,17 @@ querying, adding, and removing host names from dns records:
 
 
 ## Ruby client usage
-Create a new client: 
+Before you do anything, create a new client. This adds a connection to the 
+base Resource class. 
   
     client = Infoblox::Client.new(:username => "foo", 
                                   :password => "bar", 
                                   :host => "https://foo-bar-dns.example.com")
 
-Creating a host record: 
+The client class has a few helper methods to make certain operations easier.  Creating a host record: 
 
     client.create_host("build-machine.internal", "10.10.3.3")
-  
-Delete the host: 
-  
     client.delete_host("build-machine.internal")
-
-Find hosts (fuzzy matches on host name): 
-
     client.find_host_by_name("build-")
 
 One can also use the resource classes directly to run arbitrary query logic: 
@@ -49,6 +44,14 @@ One can also use the resource classes directly to run arbitrary query logic:
    
     Infoblox::Host.find({"name~" => "demo[0-9]{1,}-web.domain"})
     # => [...]
+
+The Resource sub-classes also support `get`, `post`, `put`, and `delete`.  For example, creating a network is pretty straightforward: 
+ 
+    network = Infoblox::Network.new
+    network.network = "10.20.30.0/24"
+    network.extensible_attributes = {"VLAN" => "my_vlan"}
+    network.auto_create_reversezone = true
+    network.post # true
 
 ## Contributing
 
