@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Billy Reisinger"]
   spec.email         = ["billy.reisinger@govdelivery.com"]
   spec.description   = %q{A Ruby wrapper to the Infoblox WAPI}
-  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI.  Resources supported for REST operations include IPv4Addr, Network, and Host. }
+  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI.  Resources supported for REST operations include CNAME, Host, HostIpv4addr, Ipv4addr, Network, and NewtorkContainer. }
   spec.homepage      = "https://github.com/govdelivery/infoblox"
   spec.license       = "MIT"
 
