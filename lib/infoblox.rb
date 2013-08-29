@@ -13,6 +13,7 @@ require 'infoblox/resource/host_ipv4addr'
 require 'infoblox/resource/ipv4addr'
 require 'infoblox/resource/network'
 require 'infoblox/resource/network_container'
+require 'infoblox/resource/ptr'
 
 module Infoblox
   WAPI_VERSION   = '1.0'
