@@ -1,6 +1,6 @@
 module Infoblox
   class Resource
-    attr_accessor :_ref
+    attr_accessor :_ref, :connection
 
     def self.wapi_object(obj=nil)
       obj.nil? ? @wapi_object : @wapi_object = obj
@@ -61,9 +61,9 @@ module Infoblox
     ##
     # Return an array of all records for this resource. 
     #
-    def self.all
+    def self.all(connection)
       JSON.parse(connection.get(resource_uri, default_params).body).map do |item|
-        new(item)
+        new(item.merge({:connection => connection}))
       end
     end
 
@@ -76,19 +76,11 @@ module Infoblox
     # Example: filter resources by name.
     #    {"name~" => "foo.*bar"}
     #
-    def self.find(params)
+    def self.find(connection, params)
       params = default_params.merge(params)
       JSON.parse(connection.get(resource_uri, params).body).map do |item|
-        new(item)
+        new(item.merge({:connection => connection}))
       end
-    end
-
-    def self.connection
-      @@connection
-    end
-
-    def self.connection=(con)
-      @@connection = con
     end
 
     def self.resource_uri
@@ -102,7 +94,7 @@ module Infoblox
     end
 
     def post
-      self._ref = connection.post(resource_uri, remote_attribute_hash(write = true, post = true)).body
+      self._ref = unquote(connection.post(resource_uri, remote_attribute_hash(write = true, post = true)).body)
       true
     end
     alias_method :create, :post
@@ -116,7 +108,8 @@ module Infoblox
     end
 
     def put
-      connection.put(resource_uri, remote_attribute_hash(write = true))
+      self._ref = unquote(connection.put(resource_uri, remote_attribute_hash(write = true)).body)
+      true
     end
 
     def resource_uri
@@ -138,10 +131,9 @@ module Infoblox
     end
 
   private
-
-    def connection
-      self.class.connection
+    def unquote(str)
+      str.gsub(/\A['"]+|['"]+\Z/, "")
     end
-
   end
+
 end

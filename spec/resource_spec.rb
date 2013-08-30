@@ -32,30 +32,28 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     conn = double
     uri = Infoblox::BASE_PATH + "foo:animal"
     allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction"}).and_return(FooResponse.new("[]"))
-    FooResource.connection = conn
-    FooResource.all.should eq([])
+    FooResource.all(conn).should eq([])
   end
 
   it "should put with the right attributes" do
     conn = double
     uri = Infoblox::BASE_PATH + "abcd"
-    allow(conn).to receive(:put).with(uri, {:name => "jerry", :junction => "32", :do_it => false}).and_return(FooResponse.new("[]"))
-    FooResource.connection = conn
-    f = FooResource.new
+    allow(conn).to receive(:put).with(uri, {:name => "jerry", :junction => "32", :do_it => false}).and_return(FooResponse.new("\"foobar\""))
+    f = FooResource.new(:connection => conn)
     f._ref = "abcd" 
     f.do_it = false
     f.junction = "32"
     f.name = "jerry"
     f.sect = :fulburns
     f.put
+    f._ref.should eq("foobar")
   end
 
   it "should post with the right attributes" do
     conn = double
     uri = Infoblox::BASE_PATH + "foo:animal"
-    allow(conn).to receive(:post).with(uri, {:name => "jerry", :junction => "32", :do_it => false, :sect => :fulburns}).and_return(FooResponse.new("abcdefg"))
-    FooResource.connection = conn
-    f = FooResource.new
+    allow(conn).to receive(:post).with(uri, {:name => "jerry", :junction => "32", :do_it => false, :sect => :fulburns}).and_return(FooResponse.new("\"abcdefg\""))
+    f = FooResource.new(:connection => conn)
     f.do_it = false
     f.junction = "32"
     f.name = "jerry"
