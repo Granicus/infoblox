@@ -7,8 +7,18 @@ module Infoblox
 
     wapi_object "network"
 
-    def next_available_ip(num=1)
-      JSON.parse(connection.post(resource_uri + "?_function=next_available_ip&num=#{num}", {}).body)["ips"]
+    ## 
+    # Invoke the same-named function on the network resource in WAPI, 
+    # returning an array of available IP addresses. 
+    # You may optionally specify how many IPs you want (num) and which ones to 
+    # exclude from consideration (array of IPv4 addrdess strings).
+    #
+    def next_available_ip(num=1, exclude=[])
+      post_body = {
+        num:     num.to_i,
+        exclude: exclude
+      }
+      JSON.parse(connection.post(resource_uri + "?_function=next_available_ip", post_body).body)["ips"]
     end
   end
 end
