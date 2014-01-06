@@ -1,6 +1,13 @@
 module Infoblox
   class Connection
-    attr_accessor :username, :password, :host, :connection, :logger, :ssl_opts
+    attr_accessor :adapter, 
+                  :adapter_block,
+                  :connection, 
+                  :host, 
+                  :logger, 
+                  :password, 
+                  :ssl_opts, 
+                  :username
 
     def get(href, params={})
       wrap do
@@ -43,11 +50,25 @@ module Infoblox
     def connection
       @connection ||= Faraday.new(:url => self.host, :ssl => {:verify => false}) do |faraday|
         faraday.use Faraday::Response::Logger, logger if logger
-
         faraday.request :json
         faraday.basic_auth(self.username, self.password)
-        faraday.adapter :net_http
+        faraday.adapter(self.adapter, &self.adapter_block)
       end
+    end
+
+    ##
+    # The host variable is expected to be a protocol with a host name. 
+    # If the host has no protocol, https:// is added before it. 
+    #
+    def host=(new_host)
+      unless new_host =~ /^http(s)?:\/\//
+        new_host = "https://#{new_host}"
+      end
+      @host = new_host
+    end
+
+    def adapter
+      @adapter ||= :net_http
     end
 
     private
