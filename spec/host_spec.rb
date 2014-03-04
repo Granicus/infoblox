@@ -17,7 +17,8 @@ describe Infoblox::Host, "#add_ipv4addr" do
       :ipv4addrs => [{:ipv4addr => "10.10.10.10"}],
       :name => "test-server.test.ing",
       :configure_for_dns => nil,
-      :extensible_attributes => nil}).and_return(HostResponse.new("\"hey\""))
+      :extensible_attributes => nil, 
+      :view => nil}).and_return(HostResponse.new("\"hey\""))
 
     h = Infoblox::Host.new(:connection => conn)
     h.add_ipv4addr("10.10.10.10")
