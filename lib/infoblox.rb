@@ -7,14 +7,10 @@ require 'infoblox/version'
 require 'infoblox/connection'
 require 'infoblox/resource'
 
-require 'infoblox/resource/cname'
-require 'infoblox/resource/host'
-require 'infoblox/resource/host_ipv4addr'
-require 'infoblox/resource/arecord'
-require 'infoblox/resource/ipv4addr'
-require 'infoblox/resource/network'
-require 'infoblox/resource/network_container'
-require 'infoblox/resource/ptr'
+# Require everything in the resource directory
+Dir[File.expand_path('../infoblox/resource/*.rb', __FILE__)].each do |f|
+  require f
+end
 
 module Infoblox
   WAPI_VERSION   = '1.0'
