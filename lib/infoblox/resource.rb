@@ -3,7 +3,12 @@ module Infoblox
     attr_accessor :_ref, :connection
 
     def self.wapi_object(obj=nil)
-      obj.nil? ? @wapi_object : @wapi_object = obj
+      if obj.nil? 
+        @wapi_object
+      else
+        self.resource_map[obj] = self
+        @wapi_object = obj
+      end
     end
 
     ## 
@@ -85,6 +90,14 @@ module Infoblox
 
     def self.resource_uri
       BASE_PATH + self.wapi_object
+    end
+
+    ##
+    # A hash that maps Infoblox WAPI object identifiers to subclasses of Resource.
+    # Used by the Search resource for mapping response objects.
+    #
+    def self.resource_map
+      @@resource_map ||= {}
     end
 
     def initialize(attrs={})

@@ -17,10 +17,13 @@ Or install it yourself as:
     $ gem install infoblox
 
 # Usage
-An instance of the Infoblox::Connection class is necessary:
+
+## Connecting
+An instance of the `Infoblox::Connection` class is necessary:
 
     connection = Infoblox::Connection.new(:username => '', :password => '', :host => '')
 
+## Querying
 Once a connection is made, one can use the resource class methods to query records: 
 
     Infoblox::Network.all(connection)
@@ -29,6 +32,11 @@ Once a connection is made, one can use the resource class methods to query recor
     Infoblox::Host.find(connection, {"name~" => "demo[0-9]{1,}-web.domain"})
     # => [...]
 
+You can also search across the Infoblox cluster using the `Infoblox::Search` resource. The response will contain any number of `Infoblox::Resource` subclass instances. 
+
+    result = Infoblox::Search.new(connection, "search_string~" => "webserver-")
+
+## Creating, updating, and deleting resources
 The resource class instances support `get`, `post`, `put`, and `delete`.  For example, creating a network is pretty straightforward: 
  
     network = Infoblox::Network.new(:connection => connection)
@@ -38,6 +46,7 @@ The resource class instances support `get`, `post`, `put`, and `delete`.  For ex
     network.post # true
     network.network = "10.20.31.0/24"
     network.put  # true
+
 
 ## Contributing
 
