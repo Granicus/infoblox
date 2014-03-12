@@ -34,8 +34,9 @@ Once a connection is made, one can use the resource class methods to query recor
 
 You can also search across the Infoblox cluster using the `Infoblox::Search` resource. The response will contain any number of `Infoblox::Resource` subclass instances. 
 
-    result = Infoblox::Search.new(connection, "search_string~" => "webserver-")
-
+    result = Infoblox::Search.find(connection, "search_string~" => "webserver-")
+    # => [#<Infoblox::Host>, #<Infoblox::Ptr>, ...]
+    
 ## Creating, updating, and deleting resources
 The resource class instances support `get`, `post`, `put`, and `delete`.  For example, creating a network is pretty straightforward: 
  
