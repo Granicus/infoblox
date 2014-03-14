@@ -7,12 +7,12 @@ module Infoblox
 
     def ipv4addrs=(attrs=[])
       attrs.each do |att|
-        ipv4addrs << Ipv4addr.new(att)
+        ipv4addrs << HostIpv4addr.new(att)
       end
     end
 
     def add_ipv4addr(address)
-      ipv4addrs << Ipv4addr.new(:ipv4addr => address)
+      ipv4addrs << HostIpv4addr.new(:ipv4addr => address)
     end
 
     def ipv4addrs

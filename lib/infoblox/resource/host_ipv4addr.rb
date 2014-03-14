@@ -1,16 +1,8 @@
 module Infoblox
   class HostIpv4addr < Resource
-    remote_attr_accessor :network, :host, :ipv4addr
+    remote_attr_accessor :network, :host, :ipv4addr, :configure_for_dhcp
     
     wapi_object "record:host_ipv4addr"
-
-    def post
-      raise "Not supported"
-    end
-
-    def put
-      raise "Not supported"
-    end
 
     def delete
       raise "Not supported"
