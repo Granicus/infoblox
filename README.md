@@ -24,11 +24,17 @@ An instance of the `Infoblox::Connection` class is necessary:
     connection = Infoblox::Connection.new(:username => '', :password => '', :host => '')
 
 ## Querying
-Once a connection is made, one can use the resource class methods to query records: 
+Once a connection is made, one can use the resource class methods to query records.  You can use the `_max_results` and `_return_fields` parameters for both `find` and `all`. See the Infoblox WAPI documentation on how to use these parameters. 
 
+    # Find all networks. Note that this is limited to 1000 objects, as per the 
+    # Infoblox WAPI documentation. 
     Infoblox::Network.all(connection)
     # => [...]
+    
+    # Find the first 7890 hosts
+    Infoblox::Network.all(connection, :_max_results => 7890)
    
+    # Find hosts that match a regular expression
     Infoblox::Host.find(connection, {"name~" => "demo[0-9]{1,}-web.domain"})
     # => [...]
 

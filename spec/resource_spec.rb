@@ -35,6 +35,13 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     FooResource.all(conn).should eq([])
   end
 
+  it "should allow .all with return fields or max results" do
+    conn = double
+    uri = Infoblox::BASE_PATH + "foo:animal"
+    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction", :_max_results => -70}).and_return(FooResponse.new("[]"))
+    FooResource.all(conn, :_max_results => -70).should eq([])
+  end
+
   it "should put with the right attributes" do
     conn = double
     uri = Infoblox::BASE_PATH + "abcd"

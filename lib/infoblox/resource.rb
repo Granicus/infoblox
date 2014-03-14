@@ -64,22 +64,31 @@ module Infoblox
     end
 
     ##
-    # Return an array of all records for this resource. 
+    # Return an array of all records for this resource. You can use the default parameters
+    # _max_results an/or _return_fields as documented by Infoblox. 
+    # 
+    # Example: return only 70 results
+    #    {"_max_results" => 70}
     #
-    def self.all(connection)
-      JSON.parse(connection.get(resource_uri, default_params).body).map do |item|
+    # Example: return only 100 results, throw an error if there are more
+    #    {"_max_results" => -100}
+    #
+    def self.all(connection, params = {})
+      params = default_params.merge(params)
+      JSON.parse(connection.get(resource_uri, params).body).map do |item|
         new(item.merge({:connection => connection}))
       end
     end
 
     ##
-    # Find resources with query parameters. 
+    # Find resources with query parameters. You can use the default parameters
+    # _max_results an/or _return_fields as documented by Infoblox.
     #
     # Example: return extensible attributes for every resource.
     #    {"_return_fields" => "extensible_attributes"}
     #
-    # Example: filter resources by name.
-    #    {"name~" => "foo.*bar"}
+    # Example: filter resources by name, return 692 results or less
+    #    {"name~" => "foo.*bar", "_max_results" => 692}
     #
     def self.find(connection, params)
       params = default_params.merge(params)
