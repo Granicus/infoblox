@@ -14,7 +14,8 @@ describe Infoblox::Host, "#add_ipv4addr" do
     uri = Infoblox::BASE_PATH + Infoblox::Host.wapi_object
 
     allow(conn).to receive(:post).with(uri, {
-      :ipv4addrs => [{:ipv4addr => "10.10.10.10"}],
+      :ipv4addrs => [{:ipv4addr => "10.10.10.10"}, 
+                     {:ipv4addr => "192.168.1.1", :mac => "109coic0932j3n0293urf"}],
       :name => "test-server.test.ing",
       :configure_for_dns => nil,
       :extensible_attributes => nil, 
@@ -22,6 +23,7 @@ describe Infoblox::Host, "#add_ipv4addr" do
 
     h = Infoblox::Host.new(:connection => conn)
     h.add_ipv4addr("10.10.10.10")
+    h.ipv4addrs=([{:ipv4addr => "192.168.1.1", :mac => "109coic0932j3n0293urf"}])
     h.name = "test-server.test.ing"
     h.post
     h._ref.should eq("hey")
