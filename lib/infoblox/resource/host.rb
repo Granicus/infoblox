@@ -21,7 +21,7 @@ module Infoblox
 
     def remote_attribute_hash(write=false, post=false)
       super.tap do |hsh|
-        hsh[:ipv4addrs] = ipv4addrs.map{|i| {:ipv4addr => i.ipv4addr}}
+        hsh[:ipv4addrs] = ipv4addrs.map{|ipv4obj| Hash[ipv4obj.class.remote_attrs.map { |attrib| [attrib, ipv4obj.send(attrib)] unless ipv4obj.send(attrib).nil? }] }
       end
     end
   end
