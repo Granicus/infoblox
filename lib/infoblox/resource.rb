@@ -141,13 +141,13 @@ module Infoblox
     def remote_attribute_hash(write=false, post=false)
       {}.tap do |hsh|
         self.class.remote_attrs.each do |k|
-          hsh[k] = self.send(k)
+          hsh[k] = self.send(k) unless self.send(k).nil?
         end
         self.class.remote_write_only_attrs.each do |k|
-          hsh[k] = self.send(k)
+          hsh[k] = self.send(k) unless self.send(k).nil?
         end if write
         self.class.remote_post_attrs.each do |k|
-          hsh[k] = self.send(k)
+          hsh[k] = self.send(k) unless self.send(k).nil?
         end if post
       end
     end
