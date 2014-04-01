@@ -15,11 +15,10 @@ describe Infoblox::Host, "#add_ipv4addr" do
 
     allow(conn).to receive(:post).with(uri, {
       :ipv4addrs => [{:ipv4addr => "10.10.10.10"}, 
-                     {:ipv4addr => "192.168.1.1", :mac => "109coic0932j3n0293urf"}],
-      :name => "test-server.test.ing",
-      :configure_for_dns => nil,
-      :extensible_attributes => nil, 
-      :view => nil}).and_return(HostResponse.new("\"hey\""))
+                     {:ipv4addr => "192.168.1.1", 
+                      :mac => "109coic0932j3n0293urf"}],
+                      :name => "test-server.test.ing"
+      }).and_return(HostResponse.new("\"hey\""))
 
     h = Infoblox::Host.new(:connection => conn)
     h.add_ipv4addr("10.10.10.10")

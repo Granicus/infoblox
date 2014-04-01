@@ -17,7 +17,7 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     host.animal = "mom"
     host.name = "lol"
     hsh = host.send(:remote_attribute_hash)
-    hsh.should eq({:name => 'lol', :junction => nil})
+    hsh.should eq({:name => 'lol'})
   end
 
   it "should have a correct resource_uri" do
