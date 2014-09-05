@@ -2,6 +2,7 @@
 
 Interact with the Infoblox WAPI with Ruby.  Use this gem to list, create, and delete host records. 
 
+[![Build Status](https://travis-ci.org/govdelivery/infoblox.svg?branch=master)](https://travis-ci.org/govdelivery/infoblox)
 ## Installation
 
 Add this line to your application's Gemfile:
