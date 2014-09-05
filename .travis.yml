@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.1.2
+  - 1.9.3
+  - jruby-19mode
+  - ruby-head
+  - jruby-head
+script: bundle exec rspec
+notifications:
+  webhooks: https://gd-radiator.ngrok.com/hubot/travis?room=devlab@conference.im.office.gdi
+  on_success: change
+  on_failure: always
