@@ -44,17 +44,26 @@ You can also search across the Infoblox cluster using the `Infoblox::Search` res
     result = Infoblox::Search.find(connection, "search_string~" => "webserver-")
     # => [#<Infoblox::Host>, #<Infoblox::Ptr>, ...]
     
-## Creating, updating, and deleting resources
+## Creating a network
 The resource class instances support `get`, `post`, `put`, and `delete`.  For example, creating a network is pretty straightforward: 
  
+    # create
     network = Infoblox::Network.new(:connection => connection)
     network.network = "10.20.30.0/24"
     network.extensible_attributes = {"VLAN" => "my_vlan"}
     network.auto_create_reversezone = true
-    network.post # true
-    network.network = "10.20.31.0/24"
-    network.put  # true
+    network.post
 
+    # update
+    network.network = "10.20.31.0/24"
+    network.put
+
+## Changing IP on an existing host
+To change the IP of an existing host, you have to poke around in the ipv4addrs collection to find the one you are looking for.  The example below assumes that there is only one ipv4 address and just overwrites it. 
+
+    host = Infoblox::Host.find(connection, {"name~" => "my.host.name"}).first
+    host.ipv4addrs[0].ipv4addr = "10.10.10.10"
+    host.put
 
 ## Contributing
 
