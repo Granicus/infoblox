@@ -65,6 +65,40 @@ To change the IP of an existing host, you have to poke around in the ipv4addrs c
     host.ipv4addrs[0].ipv4addr = "10.10.10.10"
     host.put
 
+## Basic CRUD examples
+
+To do basic create/update/delete operations on an a_record/ptr_record set:
+
+Create:
+
+    a_record = Infoblox::Arecord.new(:connection => connection, :name => <fqdn>, :ipv4addr => <ip_address>)
+    a_record.post
+    
+    ptr_record = Infoblox::Ptr.new(:connection => connection, :ptrdname => <fqdn>, :ipv4addr => <ip_address>)
+    ptr_record.post
+
+Update:
+
+    a_record = Infoblox::Arecord.find(connection, {:name => <fqdn>, :ipv4addr => resource_version_last_published.ip_address}).first
+    a_record.name = <fqdn>
+    a_record.ipv4addr = <ip_address>
+    a_record.view = nil
+    a_record.put
+
+    ptr_record = Infoblox::Ptr.find(connection, {:ptrdname => <fqdn>, :ipv4addr => resource_version_last_published.ip_address}).first
+    ptr_record.ptrdname = <fqdn>
+    ptr_record.ipv4addr = <ip_address>
+    ptr_record.view = nil
+    ptr_record.put
+
+Delete:
+
+    a_record = Infoblox::Arecord.find(connection, {:name => <fqdn>, :ipv4addr => <ip_address>}).first
+    a_record.delete
+    
+    ptr_record = Infoblox::Ptr.find(connection, {:ptrdname => <fqdn>, :ipv4addr => <ip_address>}).first
+    ptr_record.delete
+
 ## Contributing
 
 1. Fork it
