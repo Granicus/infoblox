@@ -1,9 +1,8 @@
 language: ruby
 rvm:
-  - 2.1.2
+  - 2.1.5
   - 1.9.3
   - jruby-19mode
-  - ruby-head
   - jruby-head
 script: bundle exec rspec
 notifications:
