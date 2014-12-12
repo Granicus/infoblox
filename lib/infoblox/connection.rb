@@ -1,12 +1,15 @@
 module Infoblox
+  class Error < StandardError
+  end
+
   class Connection
-    attr_accessor :adapter, 
+    attr_accessor :adapter,
                   :adapter_block,
-                  :connection, 
-                  :host, 
-                  :logger, 
-                  :password, 
-                  :ssl_opts, 
+                  :connection,
+                  :host,
+                  :logger,
+                  :password,
+                  :ssl_opts,
                   :username
 
     def get(href, params={})
@@ -44,7 +47,7 @@ module Infoblox
       self.password = opts[:password]
       self.host     = opts[:host]
       self.logger   = opts[:logger]
-      self.ssl_opts = opts[:ssl_opts] 
+      self.ssl_opts = opts[:ssl_opts]
     end
 
     def connection
@@ -76,7 +79,7 @@ module Infoblox
     def wrap
       yield.tap do |response|
         unless response.status < 300
-          raise Exception.new("Error: #{response.status} #{response.body}")
+          raise Infoblox::Error.new("Error: #{response.status} #{response.body}")
         end
       end
     end
