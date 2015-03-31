@@ -13,7 +13,7 @@ Dir[File.expand_path('../infoblox/resource/*.rb', __FILE__)].each do |f|
 end
 
 module Infoblox
-  WAPI_VERSION   = '1.1'
+  WAPI_VERSION = ENV['WAPI_VERSION'] || '1.0'
   BASE_PATH = '/wapi/v' + WAPI_VERSION + '/'
   DEBUG     = ENV['DEBUG']
 end
