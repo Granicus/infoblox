@@ -71,7 +71,7 @@ describe Infoblox::Resource, "#add_ipv4addr" do
 
   it 'should map wapi objects to classes' do
     @expected = {}
-    ObjectSpace.each_object(Class) do |p| 
+    ObjectSpace.each_object(Class) do |p|
       if p < Infoblox::Resource
         @expected[p.wapi_object] = p
       end
