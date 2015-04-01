@@ -2,8 +2,6 @@ module Infoblox
   class Resource
     attr_accessor :_ref, :connection
 
-    WAPI_VERSION_OVERRIDE = nil
-
     def self.wapi_object(obj=nil)
       if obj.nil? 
         @wapi_object
@@ -100,8 +98,7 @@ module Infoblox
     end
 
     def self.resource_uri
-      base_path = self::WAPI_VERSION_OVERRIDE.nil? ? BASE_PATH : BASE_PATH.sub(WAPI_VERSION, self::WAPI_VERSION_OVERRIDE)
-      base_path + self.wapi_object
+      BASE_PATH + self.wapi_object
     end
 
     ##

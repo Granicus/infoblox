@@ -10,11 +10,6 @@ end
 
 FooResponse = Struct.new(:body)
 
-class BarResource < Infoblox::Resource
-  WAPI_VERSION_OVERRIDE = '3.14159'
-  wapi_object "bar:pie"
-end
-
 describe Infoblox::Resource, "#add_ipv4addr" do
   it "hashes correctly" do
     host = FooResource.new
@@ -82,12 +77,6 @@ describe Infoblox::Resource, "#add_ipv4addr" do
       end
     end
     Infoblox::Resource.resource_map.should eq(@expected)
-  end
-
-  it 'respects overridden WAPI version strings' do
-    conn = double
-    b = BarResource.new(connection: conn)
-    expect(b.resource_uri).to eq '/wapi/v3.14159/bar:pie'
   end
 end
 
