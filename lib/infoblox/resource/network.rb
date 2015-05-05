@@ -18,7 +18,7 @@ module Infoblox
         num:     num.to_i,
         exclude: exclude
       }
-      JSON.parse(connection.post(resource_uri + "?_function=next_available_ip", post_body).body)["ips"]
+      JSON.parse(connection.post(resource_uri + "/#{network}?_function=next_available_ip", post_body).body)["ips"]
     end
   end
 end
