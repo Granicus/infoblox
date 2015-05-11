@@ -144,14 +144,14 @@ Delete:
 
 ## Next Available IP
 
-The `Infoblox::Network` object supports the `next_available_ip` WAPI function: 
+The `Infoblox::Network` and `Infoblox::Range` objects support the `next_available_ip` WAPI function: 
 
-    network    = Infoblox::Network.find(connection, 
-                                   network: '10.21.0.0/24').first
+    network = Infoblox::Network.find(connection, 
+                                     network: '10.21.0.0/24').first
     puts network.next_available_ip.inspect
     #=> ["10.21.0.22"]
 
-Note that this function does not work on a `Network` that has not been created.  In other words, if you want to get the next available IP for a given network segment, you have to create that segment beforehand.  See the CRUD examples above. 
+Note that this function does not work on a resource that has not been created.  In other words, if you want to get the next available IP for a given network segment, you have to create that segment beforehand.  See the CRUD examples above. 
 
 ## Contributing
 
