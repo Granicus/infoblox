@@ -1,7 +1,7 @@
 module Infoblox
   # minimum WAPI version: 1.1
   class Fixedaddress < Resource
-    remote_attr_accessor :name, :ipv4addr, :mac, :options
+    remote_attr_accessor :name, :ipv4addr, :mac, :options, :extattrs
 
     wapi_object "fixedaddress"
   end
