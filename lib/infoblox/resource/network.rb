@@ -1,6 +1,6 @@
 module Infoblox 
   class Network < Resource
-    remote_attr_accessor :network, :extensible_attributes
+    remote_attr_accessor :network, :extensible_attributes, :extattrs # keeping both formats of extensible attributes to support all WAPI versions
     remote_post_accessor :auto_create_reversezone
     
     attr_accessor :network_view, :network_container
