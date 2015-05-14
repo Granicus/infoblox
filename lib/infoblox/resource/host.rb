@@ -1,7 +1,12 @@
 module Infoblox
   class Host < Resource
-    remote_attr_accessor :ipv4addrs, :name, :configure_for_dns, :aliases,
-                         :extensible_attributes, :view, :extattrs # keeping both formats of extensible attributes to support all WAPI versions
+    remote_attr_accessor :extattrs,
+                         :extensible_attributes, 
+                         :view, 
+                         :aliases,
+                         :configure_for_dns, 
+                         :ipv4addrs, 
+                         :name
 
     wapi_object "record:host"
 

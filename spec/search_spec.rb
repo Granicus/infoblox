@@ -7,9 +7,9 @@ describe Infoblox::Search, ".find" do
 
     # empty response
     return_json = SearchResponse.new("[]")
-    uri = Infoblox::BASE_PATH + Infoblox::Search.wapi_object
+    uri = Infoblox.base_path + Infoblox::Search.wapi_object
     allow(conn).to receive(:get).with(uri, {"search_string~" => "foo"}).and_return(return_json)
-    Infoblox::Search.find(conn, "search_string~" => "foo").should eq([])
+    expect(Infoblox::Search.find(conn, "search_string~" => "foo")).to eq([])
 
     # response with host
     return_json = SearchResponse.new('[
@@ -29,9 +29,9 @@ describe Infoblox::Search, ".find" do
     ]')
     allow(conn).to receive(:get).with(uri, {"search_string~" => "foo"}).and_return(return_json)
     result = Infoblox::Search.find(conn, "search_string~" => "foo")
-    result[0].should be_a(Infoblox::Host)
+    expect(result[0]).to be_a(Infoblox::Host)
     host = result[0]
-    host.name.should eq("foo-bar-baz.inner.domain")
+    expect(host.name).to eq("foo-bar-baz.inner.domain")
   end
 end
 

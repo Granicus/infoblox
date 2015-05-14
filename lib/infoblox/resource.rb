@@ -56,7 +56,8 @@ module Infoblox
     end
 
     def self._return_fields
-      self.remote_attrs.join(",")
+      remove = Infoblox.wapi_version < '1.2' ? :extattrs : :extensible_attributes
+      (self.remote_attrs - [remove]).join(",")
     end
 
     def self.default_params
@@ -98,7 +99,7 @@ module Infoblox
     end
 
     def self.resource_uri
-      BASE_PATH + self.wapi_object
+      Infoblox.base_path + self.wapi_object
     end
 
     ##
@@ -135,7 +136,7 @@ module Infoblox
     end
 
     def resource_uri
-      self._ref.nil? ? self.class.resource_uri : (BASE_PATH + self._ref)
+      self._ref.nil? ? self.class.resource_uri : (Infoblox.base_path + self._ref)
     end
     
     def remote_attribute_hash(write=false, post=false)

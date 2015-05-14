@@ -5,8 +5,31 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require File.expand_path("../../lib/infoblox", __FILE__)
+Bundler.setup(:test)
+require 'highline/import'
+
+module Helper
+  def each_version
+    ['1.0', '1.2', '1.4', '2.0'].each do |v|
+      Infoblox.wapi_version = v
+      yield
+    end
+  ensure
+    Infoblox.wapi_version = '1.0'
+  end
+
+  def connection
+    Infoblox::Connection.new(
+      username: $username,
+      password: $password,
+      host:     $host,
+      # logger:   Logger.new(STDOUT)
+    )
+  end
+end
+
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  # config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 
@@ -15,4 +38,11 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+  config.include(Helper)
+end
+
+if ENV['INTEGRATION']
+  $host     = ask("Infoblox host: ")
+  $username = ask("Infoblox username: ")
+  $password = ask("Infoblox password: ") {|q| q.echo = false }
 end

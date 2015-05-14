@@ -66,6 +66,7 @@ The resource class instances implement `get`, `post`, `put`, and `delete` method
 
 This pattern applies for interacting with every resource.  Supported resources include:
     
+    Infoblox::AAAArecord
     Infoblox::Arecord
     Infoblox::Cname
     Infoblox::FixedAddress
@@ -76,11 +77,13 @@ This pattern applies for interacting with every resource.  Supported resources i
     Infoblox::Network
     Infoblox::NetworkContainer
     Infoblox::Ptr
+    Infoblox::Range
     Infoblox::Search
     Infoblox::Srv
     Infoblox::Txt
+    Infoblox::ZoneAuth
 
-The specific attributes supported by each resource are listed in the source code.
+The specific attributes supported by each resource are listed in the source code.  Adding a new resource class is easy, and pull requests are encouraged. 
 
 ## Changing IP on an existing host
 To change the IP of an existing host, you have to poke around in the ipv4addrs collection to find the one you are looking for.  The example below assumes that there is only one ipv4 address and just overwrites it. 
@@ -153,6 +156,30 @@ The `Infoblox::Network` and `Infoblox::Range` objects support the `next_availabl
 
 Note that this function does not work on a resource that has not been created.  In other words, if you want to get the next available IP for a given network segment, you have to create that segment beforehand.  See the CRUD examples above. 
 
+## Infoblox Version Compatibility
+
+This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as FixedAddress and AAAARecord).  To set your version, use the `WAPI_VERSION` environment variable.  For example: 
+
+    WAPI_VERSION=2.0 ruby my_script.rb
+
+## Extensible Attributes
+
+Extensible attributes are supported in this client.  It should be noted that in WAPI versions before 1.2,  the field is named "extensible_attributes", whereas in version 1.2 and later, it is named "extattrs". 
+
+## Development / testing
+
+First, clone and bundle: 
+
+    bundle install
+
+To run the tests: 
+
+    rspec
+
+To run the integration tests (you will be prompted for your Infoblox credentials):
+
+    INTEGRATION=true rspec
+    
 ## Contributing
 
 1. Fork it

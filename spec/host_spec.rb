@@ -5,13 +5,13 @@ describe Infoblox::Host, "#add_ipv4addr" do
     host = Infoblox::Host.new
     host.add_ipv4addr("10.10.10.10")
     host.add_ipv4addr("10.10.10.12")
-    host.ipv4addrs[0].should be_a(Infoblox::HostIpv4addr)
-    host.ipv4addrs[0].ipv4addr.should eq("10.10.10.10")
+    expect(host.ipv4addrs[0]).to be_a(Infoblox::HostIpv4addr)
+    expect(host.ipv4addrs[0].ipv4addr).to eq("10.10.10.10")
   end
 
   it "posts correctly" do
     conn = double
-    uri = Infoblox::BASE_PATH + Infoblox::Host.wapi_object
+    uri = Infoblox.base_path + Infoblox::Host.wapi_object
 
     allow(conn).to receive(:post).with(uri, {
       :ipv4addrs => [{:ipv4addr => "10.10.10.10"}, 
@@ -25,7 +25,7 @@ describe Infoblox::Host, "#add_ipv4addr" do
     h.ipv4addrs=([{:ipv4addr => "192.168.1.1", :mac => "109coic0932j3n0293urf"}])
     h.name = "test-server.test.ing"
     h.post
-    h._ref.should eq("hey")
+    expect(h._ref).to eq("hey")
   end
 end
 

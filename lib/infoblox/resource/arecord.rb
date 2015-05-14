@@ -1,7 +1,11 @@
 module Infoblox
   class Arecord < Resource
-    remote_attr_accessor :name, :ipv4addr, :ttl,
-                         :extensible_attributes, :view, :extattrs # keeping both formats of extensible attributes to support all WAPI versions
+    remote_attr_accessor :extattrs,
+                         :extensible_attributes, 
+                         :ipv4addr, 
+                         :ttl,
+                         :view, 
+                         :name
 
     wapi_object "record:a"
   end
