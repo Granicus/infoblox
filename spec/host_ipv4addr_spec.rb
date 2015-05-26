@@ -5,7 +5,7 @@ describe Infoblox::HostIpv4addr do
     expected = [:host]
     expect(Infoblox::HostIpv4addr.remote_post_attrs).to eq(expected)
 
-    expected = [:network, :ipv4addr, :configure_for_dhcp, :mac].sort
+    expected = [:network, :ipv4addr, :configure_for_dhcp, :mac, :nextserver, :use_nextserver].sort
     expect(Infoblox::HostIpv4addr.remote_attrs.sort).to eq(expected)
   end
 end  

@@ -3,7 +3,9 @@ module Infoblox
     remote_attr_accessor :configure_for_dhcp, 
                          :ipv4addr, 
                          :mac,
-                         :network
+                         :network,
+                         :nextserver,
+                         :use_nextserver
                          
     remote_post_accessor :host
     
