@@ -5,7 +5,8 @@ module Infoblox
                          :ipv4addr, 
                          :mac, 
                          :name, 
-                         :options
+                         :options,
+                         :match_client
 
     wapi_object "fixedaddress"
   end
