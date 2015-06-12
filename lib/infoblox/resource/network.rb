@@ -1,8 +1,10 @@
 module Infoblox 
   class Network < Resource
-    remote_attr_accessor :extattrs,
+    remote_attr_accessor :comment,
+                         :extattrs,
                          :extensible_attributes, 
                          :network
+                         
 
     remote_post_accessor :auto_create_reversezone
     
