@@ -3,7 +3,7 @@ class FooResource < Infoblox::Resource
   remote_attr_accessor :name, :junction, :extattrs, :extensible_attributes
   remote_attr_writer :do_it
   remote_post_accessor :sect
-
+  remote_attr_reader :readonly_thing
   attr_accessor :animal
   wapi_object "foo:animal"
 end
@@ -23,15 +23,15 @@ describe Infoblox::Resource, "#add_ipv4addr" do
   it "handles extattrs correctly in return fields" do
     expect(Infoblox).to receive(:wapi_version).and_return("1.0")
     hsh = FooResource._return_fields
-    expect(hsh).to eq('name,junction,extensible_attributes')
+    expect(hsh).to eq('name,junction,extensible_attributes,readonly_thing')
 
     expect(Infoblox).to receive(:wapi_version).and_return("1.2")
     hsh = FooResource._return_fields
-    expect(hsh).to eq('name,junction,extattrs')
+    expect(hsh).to eq('name,junction,extattrs,readonly_thing')
 
     expect(Infoblox).to receive(:wapi_version).and_return("2.0")
     hsh = FooResource._return_fields
-    expect(hsh).to eq('name,junction,extattrs')
+    expect(hsh).to eq('name,junction,extattrs,readonly_thing')
   end
 
   it "should have a correct resource_uri" do
@@ -45,14 +45,14 @@ describe Infoblox::Resource, "#add_ipv4addr" do
   it "should find with default attributes" do
     conn = double
     uri = Infoblox.base_path + "foo:animal"
-    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes"}).and_return(FooResponse.new("[]"))
+    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing"}).and_return(FooResponse.new("[]"))
     expect(FooResource.all(conn)).to eq([])
   end
 
   it "should allow .all with return fields or max results" do
     conn = double
     uri = Infoblox.base_path + "foo:animal"
-    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes", :_max_results => -70}).and_return(FooResponse.new("[]"))
+    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing", :_max_results => -70}).and_return(FooResponse.new("[]"))
     expect(FooResource.all(conn, :_max_results => -70)).to eq([])
   end
 

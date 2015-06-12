@@ -43,6 +43,16 @@ module Infoblox
       end
     end
 
+    ##
+    # Define a read-only attribute
+    #
+    def self.remote_attr_reader(*args)
+      args.each do |a|
+        attr_reader a
+        remote_attrs << a
+      end
+    end
+
     def self.remote_attrs
       @remote_attrs ||= []
     end
