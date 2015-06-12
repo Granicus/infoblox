@@ -5,7 +5,9 @@ module Infoblox
                          :mac,
                          :network,
                          :nextserver,
-                         :use_nextserver
+                         :use_nextserver,
+                         :bootfile,
+                         :use_bootfile
                          
     remote_post_accessor :host
     
