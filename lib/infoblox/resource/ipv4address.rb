@@ -22,6 +22,11 @@ module Infoblox
       raise "Not supported"
     end
     
+    ##
+    # as per the WAPI doc: 
+    # This object is created only as part of the record.host object, 
+    # it cannot be created directly.
+    #
     def create
       raise "Not supported"
     end

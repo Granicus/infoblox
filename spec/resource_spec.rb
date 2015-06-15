@@ -83,6 +83,13 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     expect(f._ref).to eq('abcdefg')
   end
 
+  it 'should set all attributes including readonly attrs' do
+    f = FooResource.new(:readonly_thing => 45, :do_it => false, :sect => :larry)
+    expect(f.readonly_thing).to eq(45)
+    expect(f.do_it).to be(false)
+    expect(f.sect).to eq(:larry)
+  end
+  
   it 'should map wapi objects to classes' do
     @expected = {}
     ObjectSpace.each_object(Class) do |p|

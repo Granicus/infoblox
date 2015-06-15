@@ -122,7 +122,9 @@ module Infoblox
 
     def initialize(attrs={})
       attrs.each do |k,v|
-        self.send("#{k}=", v)
+        # set ivars directly here, as sometimes 
+        # we only use readers on certain fields
+        instance_variable_set("@#{k}", v)
       end
     end
 
