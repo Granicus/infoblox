@@ -6,7 +6,9 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require File.expand_path("../../lib/infoblox", __FILE__)
 Bundler.setup(:test)
-require 'highline/import'
+if ENV['INTEGRATION']
+  require 'highline/import'
+end
 
 module Helper
   def each_version
@@ -20,10 +22,10 @@ module Helper
 
   def connection
     Infoblox::Connection.new(
-      username: $username,
-      password: $password,
-      host:     $host,
-      # logger:   Logger.new(STDOUT)
+      :username => $username,
+      :password => $password,
+      :host =>     $host
+      # :logger => Logger.new(STDOUT)
     )
   end
 end

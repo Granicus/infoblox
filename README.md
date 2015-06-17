@@ -156,15 +156,20 @@ The `Infoblox::Network` and `Infoblox::Range` objects support the `next_availabl
 
 Note that this function does not work on a resource that has not been created.  In other words, if you want to get the next available IP for a given network segment, you have to create that segment beforehand.  See the CRUD examples above. 
 
+
+## Extensible Attributes
+
+Extensible attributes are supported in this client.  It should be noted that in WAPI versions before 1.2,  the field is named "extensible_attributes", whereas in version 1.2 and later, it is named "extattrs". 
+
 ## Infoblox Version Compatibility
 
 This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as FixedAddress and AAAARecord).  To set your version, use the `WAPI_VERSION` environment variable.  For example: 
 
     WAPI_VERSION=2.0 ruby my_script.rb
 
-## Extensible Attributes
+## Ruby Version Compatibility
 
-Extensible attributes are supported in this client.  It should be noted that in WAPI versions before 1.2,  the field is named "extensible_attributes", whereas in version 1.2 and later, it is named "extattrs". 
+This gem is tested against Ruby versions 1.8.7, 1.9.3, 2.1.6, JRuby-head, and JRuby in 1.9 mode.
 
 ## Development / testing
 
@@ -179,6 +184,8 @@ To run the tests:
 To run the integration tests (you will be prompted for your Infoblox credentials):
 
     INTEGRATION=true rspec
+
+Please note that the integration tests do not work in Ruby 1.8.7, but the unit tests function normally.
     
 ## Contributing
 

@@ -20,8 +20,8 @@ module Infoblox
     #
     def next_available_ip(num=1, exclude=[])
       post_body = {
-        num:     num.to_i,
-        exclude: exclude
+        :num =>     num.to_i,
+        :exclude => exclude
       }
       JSON.parse(connection.post(resource_uri + "?_function=next_available_ip", post_body).body)["ips"]
     end

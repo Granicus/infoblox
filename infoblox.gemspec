@@ -18,6 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  if RUBY_VERSION <= '1.8.7'
+    spec.add_runtime_dependency "json"
+  end
   spec.add_runtime_dependency "faraday"
   spec.add_runtime_dependency "faraday_middleware"  
   

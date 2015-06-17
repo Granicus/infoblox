@@ -1,9 +1,10 @@
 language: ruby
 rvm:
-  - 2.1.5
+  - 2.1.6
   - 1.9.3
   - jruby-19mode
   - jruby-head
+  - 1.8.7
 script: bundle exec rspec
 notifications:
   webhooks: https://gd-radiator.ngrok.com/hubot/travis?room=devlab@conference.im.office.gdi
