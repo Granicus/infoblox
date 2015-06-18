@@ -6,8 +6,9 @@ module Infoblox
                          :extattrs,
                          :extensible_attributes, 
                          :name, 
-                         :view,
-                         :zone
+                         :view
+    
+    remote_attr_reader :zone
 
 
     wapi_object "record:cname"

@@ -8,8 +8,9 @@ module Infoblox
                          :ptrdname,
                          :extattrs,
                          :extensible_attributes,
-                         :view, 
-                         :zone
+                         :view
+    
+    remote_attr_reader :zone
 
     wapi_object "record:ptr"
   end

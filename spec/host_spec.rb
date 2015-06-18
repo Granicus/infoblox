@@ -9,6 +9,16 @@ describe Infoblox::Host, "#add_ipv4addr" do
     expect(host.ipv4addrs[0].ipv4addr).to eq("10.10.10.10")
   end
 
+  it "initializes correctly" do
+    data = {
+      :name      => 'silly-little-host',
+      :ipv4addrs => [{:ipv4addr => '10.10.10.10'}]
+    }
+    host = Infoblox::Host.new(data)
+    expect(host.ipv4addrs[0]).to be_a(Infoblox::HostIpv4addr)
+    expect(host.name).to eq('silly-little-host')
+  end
+
   it "posts correctly" do
     conn = double
     uri = Infoblox.base_path + Infoblox::Host.wapi_object

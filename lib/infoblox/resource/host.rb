@@ -8,8 +8,9 @@ module Infoblox
                          :extensible_attributes,
                          :ipv4addrs,
                          :name,
-                         :view,
-                         :zone
+                         :view
+
+    remote_attr_reader :zone
 
     wapi_object "record:host"
 

@@ -49,7 +49,7 @@ module Infoblox
     def self.remote_attr_reader(*args)
       args.each do |a|
         attr_reader a
-        remote_attrs << a
+        remote_read_only_attrs << a
       end
     end
 
@@ -61,13 +61,17 @@ module Infoblox
       @remote_write_only_attrs ||= []
     end
 
+    def self.remote_read_only_attrs
+      @remote_read_only_attrs ||= []
+    end
+
     def self.remote_post_attrs
       @remote_post_attrs ||= []
     end
 
     def self._return_fields
       remove = Infoblox.wapi_version < '1.2' ? :extattrs : :extensible_attributes
-      (self.remote_attrs - [remove]).join(",")
+      ((self.remote_attrs + self.remote_read_only_attrs) - [remove]).join(",")
     end
 
     def self.default_params
@@ -122,9 +126,15 @@ module Infoblox
 
     def initialize(attrs={})
       attrs.each do |k,v|
-        # set ivars directly here, as sometimes 
-        # we only use readers on certain fields
-        instance_variable_set("@#{k}", v)
+        # Some things have specialized writers, 
+        # like Host
+        if respond_to?("#{k}=")
+          send("#{k}=", v)
+        
+        # Some things don't have writers (i.e. remote_attr_reader fields)
+        else
+          instance_variable_set("@#{k}", v)
+        end
       end
     end
 

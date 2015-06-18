@@ -7,8 +7,9 @@ module Infoblox
                          :ipv4addr,
                          :name,
                          :ttl,
-                         :view,
-                         :zone
+                         :view
+                         
+    remote_attr_reader :zone
 
     wapi_object "record:a"
   end
