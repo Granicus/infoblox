@@ -10,7 +10,7 @@ if ENV['INTEGRATION']
       it 'should create, update, and destroy' do
         failure = false
         each_version do
-          @host = Infoblox::Host.new(connection: connection)
+          @host = Infoblox::Host.new(:connection => connection)
           begin
             @host.add_ipv4addr('10.30.30.30')
             @host.name = "poc-infobloxgem-test1.ep.gdi"
