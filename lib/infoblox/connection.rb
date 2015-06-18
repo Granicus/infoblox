@@ -74,6 +74,13 @@ module Infoblox
       @adapter ||= :net_http
     end
 
+    ##
+    # Don't display the username/password in logging, etc. 
+    #
+    def inspect
+      "#<#{self.class}:#{object_id} @host=\"#{@host}\">"
+    end
+
     private
 
     def wrap
