@@ -25,24 +25,37 @@ An instance of the `Infoblox::Connection` class is necessary:
     connection = Infoblox::Connection.new(username: '', password: '', host: '')
 
 ## Reading
-Each resource class implements `all` and `find`.  You can use the `_max_results` and `_return_fields` parameters for both of these methods. See the Infoblox WAPI documentation on how to use these parameters. 
+Each resource class implements `.all`, `.find`, and `#get`.   
 
-    # Find all networks. Note that this is limited to 1000 objects, as per the 
-    # Infoblox WAPI documentation. 
-    Infoblox::Network.all(connection)
-    # => [...]
-    
-    # If you want more than 1,000 records, use `_max_results`:
-    Infoblox::Network.all(connection, _max_results: 7890)
-   
+### `.find`
+Use find when you don't know what you are looking for or you don't have a `_ref` saved (see `get` below).  Use `_max_results` to limit / expand the number of returned results.
+
     # You can find hosts that match a regular expression:
     Infoblox::Host.find(connection, {"name~" => "demo[0-9]{1,}-web.domain"})
     # => [...]
 
+### `.all`
+Show all results (note that this is limited by `_max_results`).  Use this cautiously when you have a large potential set of results.
+    
+    # Find all networks. Note that this is limited to 1000 objects, as per the 
+    # Infoblox WAPI documentation. 
+    Infoblox::Network.all(connection)
+    # => [...]
+
+    # If you want more than 1,000 records, use `_max_results`:
+    Infoblox::Network.all(connection, _max_results: 7890)
+   
 The usage of search parameters is well-documented in the Infoblox WAPI documentation, and this client supports them fully.
 
+### `#get`
+Use this when you have saved a reference (`_ref`) and want to load it later. 
+
+    host = Infoblox::Host.new(:connection => c, :_ref => ref).get
+    puts host.name 
+    # => foo.bar
+
 ## Searching
-You can also search across the Infoblox cluster using the `Infoblox::Search` resource. The response will contain any number of `Infoblox::Resource` subclass instances. 
+You can also search across all Infoblox resource types using the `Infoblox::Search` resource. The response will contain any number of `Infoblox::Resource` subclass instances. 
 
     result = Infoblox::Search.find(connection, "search_string~" => "webserver-")
     # => [#<Infoblox::Host>, #<Infoblox::Ptr>, ...]
@@ -183,6 +196,7 @@ To run the tests:
 
 To run the integration tests (you will be prompted for your Infoblox credentials):
 
+    INTEGRATION=true bundle
     INTEGRATION=true rspec
 
 Please note that the integration tests do not work in Ruby 1.8.7, but the unit tests function normally.

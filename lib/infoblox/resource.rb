@@ -125,17 +125,7 @@ module Infoblox
     end
 
     def initialize(attrs={})
-      attrs.each do |k,v|
-        # Some things have specialized writers, 
-        # like Host
-        if respond_to?("#{k}=")
-          send("#{k}=", v)
-        
-        # Some things don't have writers (i.e. remote_attr_reader fields)
-        else
-          instance_variable_set("@#{k}", v)
-        end
-      end
+      load_attributes(attrs)
     end
 
     def post
@@ -148,8 +138,10 @@ module Infoblox
       connection.delete(resource_uri).status == 200
     end
 
-    def get(params={})
-      connection.get(resource_uri, params)
+    def get(params=self.class.default_params)
+      response = connection.get(resource_uri, params).body
+      load_attributes(JSON.parse(response))
+      self
     end
 
     def put
@@ -178,6 +170,20 @@ module Infoblox
   private
     def unquote(str)
       str.gsub(/\A['"]+|['"]+\Z/, "")
+    end
+
+    def load_attributes(attrs)
+      attrs.each do |k,v|
+        # Some things have specialized writers, 
+        # like Host
+        if respond_to?("#{k}=")
+          send("#{k}=", v)
+        
+        # Some things don't have writers (i.e. remote_attr_reader fields)
+        else
+          instance_variable_set("@#{k}", v)
+        end
+      end
     end
   end
 

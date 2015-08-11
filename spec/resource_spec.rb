@@ -90,6 +90,19 @@ describe Infoblox::Resource, "#add_ipv4addr" do
     expect(f.sect).to eq(:larry)
   end
   
+  it 'should load attributes on get' do
+    conn     = double
+    uri      = Infoblox.base_path + "a:ref:that:is:fake"
+    json     = {:name => "john", :junction => "hi", :extattrs => {"foo" => 3}}.to_json
+    response = FooResponse.new(json)
+    expect(conn).to receive(:get).with(uri, FooResource.default_params).and_return(response)
+    f        = FooResource.new(:connection => conn, :_ref => "a:ref:that:is:fake")
+    f.get
+    expect(f.name).to eq("john")
+    expect(f.junction).to eq("hi")
+    expect(f.extattrs).to eq({"foo" => 3})
+  end
+
   it 'should map wapi objects to classes' do
     @expected = {}
     ObjectSpace.each_object(Class) do |p|
