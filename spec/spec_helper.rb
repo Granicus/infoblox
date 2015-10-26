@@ -5,7 +5,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require File.expand_path("../../lib/infoblox", __FILE__)
-Bundler.setup(:test)
+Bundler.require(:test)
 if ENV['INTEGRATION']
   require 'highline/import'
 end

@@ -6,5 +6,6 @@ gemspec
 if ENV['INTEGRATION']
   group :test do
     gem 'highline'
+    gem 'pry'
   end
 end
