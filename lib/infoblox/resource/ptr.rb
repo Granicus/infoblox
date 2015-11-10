@@ -6,6 +6,7 @@ module Infoblox
                          :ipv6addr,
                          :name, 
                          :ptrdname,
+                         :ttl,
                          :extattrs,
                          :extensible_attributes,
                          :view
