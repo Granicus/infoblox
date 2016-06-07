@@ -4,6 +4,7 @@ module Infoblox
                          :extensible_attributes, 
                          :name,
                          :text, 
+                         :ttl,
                          :view
 
     wapi_object "record:txt"
