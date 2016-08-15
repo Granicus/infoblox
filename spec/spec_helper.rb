@@ -24,7 +24,8 @@ module Helper
     Infoblox::Connection.new(
       :username => $username,
       :password => $password,
-      :host =>     $host
+      :host =>     $host,
+      :ssl_opts => {:verify => false}
       # :logger => Logger.new(STDOUT)
     )
   end

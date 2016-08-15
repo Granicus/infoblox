@@ -20,9 +20,17 @@ Or install it yourself as:
 # Usage
 
 ## Connecting
-An instance of the `Infoblox::Connection` class is necessary:
+Before operating against Infoblox, an instance of the `Infoblox::Connection` class is necessary:
 
     connection = Infoblox::Connection.new(username: '', password: '', host: '')
+
+You can specify SSL options by using the `ssl_opts` option.  The options are passed to the HTTP adapter, which is `net/http` by default. 
+
+    connection = Infoblox::Connection.new(username: '', password: '', host: '', ssl_opts: {verify: false})
+
+You can supply a logger to get debugging information: 
+
+    connection = Infoblox::Connection.new(username: '', password: '', host: '', logger: Logger.new(STDOUT))
 
 ## Reading
 Each resource class implements `.all`, `.find`, and `#get`.   

@@ -47,11 +47,11 @@ module Infoblox
       self.password = opts[:password]
       self.host     = opts[:host]
       self.logger   = opts[:logger]
-      self.ssl_opts = opts[:ssl_opts]
+      self.ssl_opts = opts[:ssl_opts] || {}
     end
 
     def connection
-      @connection ||= Faraday.new(:url => self.host, :ssl => {:verify => false}) do |faraday|
+      @connection ||= Faraday.new(:url => self.host, :ssl => self.ssl_opts) do |faraday|
         faraday.use Faraday::Response::Logger, logger if logger
         faraday.request :json
         faraday.basic_auth(self.username, self.password)
