@@ -1,4 +1,6 @@
 if ENV['INTEGRATION']
+  require 'spec_helper'
+
   describe 'Infoblox::Host' do
     describe '.find' do
       it 'should find' do

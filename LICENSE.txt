@@ -1,4 +1,4 @@
-Copyright (c) 2013 Billy Reisinger
+Copyright (c) 2013 GovDelivery, Inc.
 
 MIT License
 

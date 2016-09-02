@@ -1,4 +1,6 @@
 if ENV['INTEGRATION']
+  require 'spec_helper'
+
   describe 'Infoblox::ZoneAuth' do
     describe '.find' do
       it 'should find' do

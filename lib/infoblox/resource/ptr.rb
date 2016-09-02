@@ -11,6 +11,14 @@ module Infoblox
                          :extensible_attributes,
                          :view
     
+    def self._return_fields
+      if Infoblox.wapi_version == '1.0'
+        super.split(",").find_all{|f| f != 'ipv6addr'}.join(",")
+      else
+        super
+      end
+    end
+
     remote_attr_reader :zone
 
     wapi_object "record:ptr"

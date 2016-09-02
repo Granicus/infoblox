@@ -1,4 +1,6 @@
 if ENV['INTEGRATION']
+  require 'spec_helper'
+
   describe 'Infoblox::Arecord' do
     describe '.find' do
       it 'should work' do
