@@ -7,7 +7,8 @@ module Infoblox
                          :disable, 
                          :extattrs
 
-    remote_post_accessor :fqdn
+    remote_post_accessor :fqdn,
+                         :view
 
     remote_attr_reader :address,
                        :network_view
