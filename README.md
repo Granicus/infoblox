@@ -184,9 +184,11 @@ Extensible attributes are supported in this client.  It should be noted that in 
 
 ## Infoblox Version Compatibility
 
-This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as FixedAddress and AAAARecord).  To set your version, use the `WAPI_VERSION` environment variable.  For example: 
+This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as FixedAddress and AAAARecord).  For best results, set the version using the `WAPI_VERSION` environment variable.  For example: 
 
-    WAPI_VERSION=2.0 ruby my_script.rb
+    WAPI_VERSION=1.2 ruby my_script.rb
+
+The default version is 2.0. 
 
 ## Ruby Version Compatibility
 

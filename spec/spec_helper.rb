@@ -17,16 +17,16 @@ module Helper
       yield
     end
   ensure
-    Infoblox.wapi_version = '1.0'
+    Infoblox.wapi_version = '2.0'
   end
 
   def connection
     Infoblox::Connection.new(
       :username => $username,
       :password => $password,
-      :host =>     $host,
+      :host     => $host,
       :ssl_opts => {:verify => false}
-      # :logger => Logger.new(STDOUT)
+      # :logger   => Logger.new(STDOUT)
     )
   end
 end

@@ -19,7 +19,7 @@ describe Infoblox::Connection do
     end
   end
 
-  it "should raise Infobloxon invalid response" do
+  it "should raise on invalid response" do
     host        = 'localhost'
     conn_params = {
       :username => "billy",

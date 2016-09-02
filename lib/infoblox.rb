@@ -7,16 +7,11 @@ require 'infoblox/version'
 require 'infoblox/connection'
 require 'infoblox/resource'
 
-# Require everything in the resource directory
-Dir[File.expand_path('../infoblox/resource/*.rb', __FILE__)].each do |f|
-  require f
-end
-
 module Infoblox
   DEBUG        = ENV['DEBUG']
   
   def wapi_version
-    @wapi_version ||= (ENV['WAPI_VERSION'] || '1.0')
+    @wapi_version ||= (ENV['WAPI_VERSION'] || '2.0')
   end
   module_function :wapi_version
 
@@ -29,4 +24,9 @@ module Infoblox
     '/wapi/v' + Infoblox.wapi_version + '/'
   end
   module_function :base_path
+end
+
+# Require everything in the resource directory
+Dir[File.expand_path('../infoblox/resource/*.rb', __FILE__)].each do |f|
+  require f
 end

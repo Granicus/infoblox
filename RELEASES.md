@@ -1,3 +1,6 @@
+## 2.0.0 - September 2 2016
+Make WAPI version 2.0 the default version. 
+
 ## 1.0.1 - September 2 2016
 A point release containing a bugfix and new field on a recod.
 

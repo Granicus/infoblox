@@ -44,15 +44,27 @@ describe Infoblox::Resource, "#add_ipv4addr" do
 
   it "should find with default attributes" do
     conn = double
-    uri = Infoblox.base_path + "foo:animal"
-    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing"}).and_return(FooResponse.new("[]"))
-    expect(FooResource.all(conn)).to eq([])
+    each_version do
+      uri = Infoblox.base_path + "foo:animal"
+      if(Infoblox.wapi_version >= '1.2')
+        allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extattrs,readonly_thing"}).and_return(FooResponse.new("[]"))
+      else 
+        allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing"}).and_return(FooResponse.new("[]"))
+      end
+      expect(FooResource.all(conn)).to eq([])
+    end
   end
 
   it "should allow .all with return fields or max results" do
     conn = double
     uri = Infoblox.base_path + "foo:animal"
-    allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing", :_max_results => -70}).and_return(FooResponse.new("[]"))
+    each_version do
+      if Infoblox.wapi_version >= '1.2'
+        allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extattrs,readonly_thing", :_max_results => -70}).and_return(FooResponse.new("[]"))
+      else
+        allow(conn).to receive(:get).with(uri, {:_return_fields => "name,junction,extensible_attributes,readonly_thing", :_max_results => -70}).and_return(FooResponse.new("[]"))
+      end
+    end
     expect(FooResource.all(conn, :_max_results => -70)).to eq([])
   end
 
