@@ -6,6 +6,7 @@ module Infoblox
                          :extattrs,
                          :extensible_attributes, 
                          :name, 
+                         :ttl,
                          :view
     
     remote_attr_reader :zone
