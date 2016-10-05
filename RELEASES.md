@@ -1,3 +1,6 @@
+## 2.0.1 - October 5 2016
+* Add TTL support to CNAME record
+
 ## 2.0.0 - September 2 2016
 Make WAPI version 2.0 the default version. 
 
