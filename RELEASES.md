@@ -1,3 +1,6 @@
+## 2.0.2 - February 3 2017
+* Move :view to Post only attributes on Arecord
+
 ## 2.0.1 - October 5 2016
 * Add TTL support to CNAME record
 
