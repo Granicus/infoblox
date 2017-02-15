@@ -1,3 +1,6 @@
+## 2.0.3 - February 15 2017
+* Added Lease resource
+
 ## 2.0.2 - February 3 2017
 * Move :view to Post only attributes on Arecord
 

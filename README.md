@@ -91,9 +91,11 @@ This pattern applies for interacting with every resource.  Supported resources i
     Infoblox::Arecord
     Infoblox::Cname
     Infoblox::FixedAddress
+    Infoblox::Grid
     Infoblox::Host
     Infoblox::HostIpv4addr
     Infoblox::Ipv4address
+    Infoblox::Lease
     Infoblox::Mx
     Infoblox::Network
     Infoblox::NetworkContainer
