@@ -1,3 +1,7 @@
+## 2.0.4 - March 8 2017
+* Added RoamingHost resource
+* Added fields to FixedAddress
+
 ## 2.0.3 - February 15 2017
 * Added Lease resource
 
