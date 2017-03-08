@@ -101,6 +101,7 @@ This pattern applies for interacting with every resource.  Supported resources i
     Infoblox::NetworkContainer
     Infoblox::Ptr
     Infoblox::Range
+    Infoblox::RoamingHost
     Infoblox::Search
     Infoblox::Srv
     Infoblox::Txt
