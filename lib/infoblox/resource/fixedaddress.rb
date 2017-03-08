@@ -9,6 +9,10 @@ module Infoblox
                          :network_view,
                          :options,
                          :match_client,
+                         :bootfile,
+                         :use_bootfile,
+                         :nextserver,
+                         :use_nextserver,
                          :comment
 
     wapi_object "fixedaddress"
