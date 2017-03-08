@@ -3,13 +3,14 @@ module Infoblox
     remote_attr_accessor :comment,
                          :disable,
                          :ipv4addr,
-                         :ipv6addr,
                          :name, 
                          :ptrdname,
                          :ttl,
                          :extattrs,
                          :extensible_attributes,
                          :view
+
+    remote_attr_accessor :ipv6addr if Infoblox::Resource.wapi_object.to_f >= 1.1
     
     def self._return_fields
       if Infoblox.wapi_version == '1.0'

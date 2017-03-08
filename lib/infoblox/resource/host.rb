@@ -10,6 +10,8 @@ module Infoblox
                          :name,
                          :view
 
+    remote_attr_accessor :ipv6addrs if Infoblox::Resource.wapi_object.to_f >= 1.1
+
     remote_attr_reader :zone
 
     wapi_object "record:host"

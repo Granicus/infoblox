@@ -11,8 +11,9 @@ module Infoblox
                          :use_ttl, 
                          :view
     
-    remote_attr_reader :dns_name, 
-                       :zone
+    remote_attr_reader :zone
+
+    remote_attr_reader :dns_name if Infoblox::Resource.wapi_object.to_f >= 1.1
 
     wapi_object "record:aaaa"
   end
