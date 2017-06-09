@@ -106,6 +106,7 @@ This pattern applies for interacting with every resource.  Supported resources i
     Infoblox::Srv
     Infoblox::Txt
     Infoblox::ZoneAuth
+    Infoblox::ZoneForward
 
 The specific attributes supported by each resource are listed in the source code.  Adding a new resource class is easy, and pull requests are encouraged. 
 
