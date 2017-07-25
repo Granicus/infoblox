@@ -90,7 +90,7 @@ This pattern applies for interacting with every resource.  Supported resources i
     Infoblox::AAAArecord
     Infoblox::Arecord
     Infoblox::Cname
-    Infoblox::FixedAddress
+    Infoblox::Fixedaddress
     Infoblox::Grid
     Infoblox::Host
     Infoblox::HostIpv4addr
@@ -187,7 +187,7 @@ Extensible attributes are supported in this client.  It should be noted that in 
 
 ## Infoblox Version Compatibility
 
-This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as FixedAddress and AAAARecord).  For best results, set the version using the `WAPI_VERSION` environment variable.  For example: 
+This gem is known to be compatible with Infoblox versions 1.0 through 2.0.  While Infoblox claims that their API is backwards-compatible, one caveat remains with the Extensible Attributes (see elsewhere in this document).  Some features are only available in newer versions (such as Fixedaddress and AAAARecord).  For best results, set the version using the `WAPI_VERSION` environment variable.  For example: 
 
     WAPI_VERSION=1.2 ruby my_script.rb
 
