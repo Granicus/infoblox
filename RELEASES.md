@@ -1,3 +1,6 @@
+## 2.0.5 - August 28 2017
+* Added ZoneForward resource
+
 ## 2.0.4 - March 8 2017
 * Added RoamingHost resource
 * Added fields to FixedAddress
