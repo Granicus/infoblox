@@ -14,8 +14,6 @@ rvm:
 # https://bundler.io/blog/2019/01/04/an-update-on-the-bundler-2-release.html
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler java || true
   - gem install bundler -v '< 2'
-  - which bundler
-  - bundle exec which bundler
+  - gem list | grep bundler
 script: bundle exec rspec
