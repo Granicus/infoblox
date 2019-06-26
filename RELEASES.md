@@ -1,3 +1,7 @@
+## 3.0.0 - June 26, 2019
+* Removed 1.8.7 support (should still work, but no longer supported in CI)
+* Added new connection timeout option with 60-second default value
+
 ## 2.0.5 - August 28 2017
 * Added ZoneForward resource
 
