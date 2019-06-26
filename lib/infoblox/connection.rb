@@ -10,7 +10,8 @@ module Infoblox
                   :logger,
                   :password,
                   :ssl_opts,
-                  :username
+                  :username,
+                  :timeout
 
     def get(href, params={})
       wrap do
@@ -48,10 +49,14 @@ module Infoblox
       self.host     = opts[:host]
       self.logger   = opts[:logger]
       self.ssl_opts = opts[:ssl_opts] || {}
+      self.timeout  = opts[:timeout] || 60
     end
 
     def connection
-      @connection ||= Faraday.new(:url => self.host, :ssl => self.ssl_opts) do |faraday|
+      @connection ||= Faraday.new(
+        :request => {:timeout => self.timeout, :open_timeout => self.timeout},
+        :url => self.host,
+        :ssl => self.ssl_opts) do |faraday|
         faraday.use Faraday::Response::Logger, logger if logger
         faraday.request :json
         faraday.basic_auth(self.username, self.password)

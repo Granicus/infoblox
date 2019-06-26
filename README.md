@@ -32,6 +32,10 @@ You can supply a logger to get debugging information:
 
     connection = Infoblox::Connection.new(username: '', password: '', host: '', logger: Logger.new(STDOUT))
 
+It is possible to set timeout, read and write timeout:
+
+    connection = Infoblox::Connection.new(username: '', password: '', host: '', timeout: 120)
+
 ## Reading
 Each resource class implements `.all`, `.find`, and `#get`.   
 
@@ -196,7 +200,9 @@ The default version is 2.0.
 
 ## Ruby Version Compatibility
 
-This gem is tested against Ruby versions 1.8.7, 1.9.3, 2.1.6, JRuby-head, and JRuby in 1.9 mode.
+This gem is tested against Ruby versions 1.9.3, 2.1.6, JRuby-head, and JRuby in 1.9 mode.
+
+The last compatible version with Ruby 1.8.x is 2.0.5.
 
 ## Development / testing
 
