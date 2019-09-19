@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Infoblox::VERSION
   spec.authors       = ["Billy Reisinger"]
   spec.email         = ["billy.reisinger@govdelivery.com"]
-  spec.description   = %q{A Ruby wrapper to the Infoblox WAPI}
-  spec.summary       = %q{This gem is a Ruby interface to the Infoblox WAPI. Using the gem, you can query, create, update, and delete DNS records in your Infoblox instance.}
+  spec.summary       = %q{A Ruby wrapper to the Infoblox WAPI}
+  spec.description   = %q{This gem is a Ruby interface to the Infoblox WAPI. Using the gem, you can query, create, update, and delete DNS records in your Infoblox instance.}
   spec.homepage      = "https://github.com/govdelivery/infoblox"
   spec.license       = "MIT"
 
