@@ -3,6 +3,7 @@
 Interact with the Infoblox WAPI with Ruby.  Use this gem to list, create, and delete host records. 
 
 [![Build Status](https://travis-ci.org/govdelivery/infoblox.svg?branch=master)](https://travis-ci.org/govdelivery/infoblox)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FGranicus%2Finfoblox.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FGranicus%2Finfoblox?ref=badge_shield)
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -228,3 +229,7 @@ Please note that the integration tests do not work in Ruby 1.8.7, but the unit t
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FGranicus%2Finfoblox.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FGranicus%2Finfoblox?ref=badge_large)
