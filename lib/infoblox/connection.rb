@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 module Infoblox
+  # Error class
   class Error < StandardError
   end
 
+  # Connection class
   class Connection
     attr_accessor :adapter,
                   :adapter_block,
@@ -13,7 +17,7 @@ module Infoblox
                   :username,
                   :timeout
 
-    def get(href, params={})
+    def get(href, params = {})
       wrap do
         connection.get(href, params)
       end
@@ -43,7 +47,7 @@ module Infoblox
       end
     end
 
-    def initialize(opts={})
+    def initialize(opts = {})
       self.username = opts[:username]
       self.password = opts[:password]
       self.host     = opts[:host]
@@ -53,25 +57,23 @@ module Infoblox
     end
 
     def connection
-      @connection ||= Faraday.new(
-        :request => {:timeout => self.timeout, :open_timeout => self.timeout},
-        :url => self.host,
-        :ssl => self.ssl_opts) do |faraday|
-        faraday.use Faraday::Response::Logger, logger if logger
-        faraday.request :json
-        faraday.basic_auth(self.username, self.password)
-        faraday.adapter(self.adapter, &self.adapter_block)
+      @connection = Faraday.new(request: { timeout: timeout,
+                                           open_timeout: timeout },
+                                url: host,
+                                ssl: ssl_opts) do |builder|
+        builder.request :basic_auth, username, password
+        builder.response :logger, logger if logger
+        builder.request :json
+        builder.adapter adapter, &adapter_block
       end
     end
 
     ##
-    # The host variable is expected to be a protocol with a host name. 
-    # If the host has no protocol, https:// is added before it. 
+    # The host variable is expected to be a protocol with a host name.
+    # If the host has no protocol, https:// is added before it.
     #
     def host=(new_host)
-      unless new_host =~ /^http(s)?:\/\//
-        new_host = "https://#{new_host}"
-      end
+      new_host = "https://#{new_host}" unless new_host =~ %r{/^http(s)?:///}
       @host = new_host
     end
 
@@ -80,7 +82,7 @@ module Infoblox
     end
 
     ##
-    # Don't display the username/password in logging, etc. 
+    # Don't display the username/password in logging, etc.
     #
     def inspect
       "#<#{self.class}:#{object_id} @host=\"#{@host}\">"
@@ -90,11 +92,8 @@ module Infoblox
 
     def wrap
       yield.tap do |response|
-        unless response.status < 300
-          raise Infoblox::Error.new("Error: #{response.status} #{response.body}")
-        end
+        raise Infoblox::Error.new "Error: #{response.status} #{response.body}" unless response.status < 300
       end
     end
   end
 end
-
